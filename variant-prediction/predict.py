@@ -8,7 +8,7 @@ import pathlib
 
 import torch
 
-from esm import Alphabet, FastaBatchedDataset, ProteinBertModel, pretrained, MSATransformer
+from esm_one_hot import Alphabet, FastaBatchedDataset, ProteinBertModel, pretrained, MSATransformer
 import pandas as pd
 from tqdm import tqdm
 from Bio import SeqIO
@@ -150,10 +150,11 @@ def main(args):
             ), "MSA Transformer only supports masked marginal strategy"
 
             batch_labels, batch_strs, batch_tokens = batch_converter(data)
-
+  
             all_token_probs = []
             for i in tqdm(range(batch_tokens.size(2))):
                 batch_tokens_masked = batch_tokens.clone()
+                import pdb; pdb.set_trace()
                 batch_tokens_masked[0, 0, i] = alphabet.mask_idx  # mask out first sequence
                 with torch.no_grad():
                     token_probs = torch.log_softmax(

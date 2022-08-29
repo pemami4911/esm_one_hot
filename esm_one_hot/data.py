@@ -388,7 +388,7 @@ class MSABatchConverter(OneHotBatchConverter):
         return labels, strs, tokens
 
 
-class OneHotMSABatchConverter(BatchConverter):
+class OneHotMSABatchConverter(OneHotBatchConverter):
     def __call__(self, inputs: Union[Sequence[RawMSA], RawMSA]):
         if isinstance(inputs[0][0], str):
             # Input is a single MSA
