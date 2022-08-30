@@ -389,7 +389,7 @@ class MSABatchConverter(OneHotBatchConverter):
 
 
 class OneHotMSABatchConverter(OneHotBatchConverter):
-    def __call__(self, inputs: Union[Sequence[RawMSA], RawMSA]):
+    def __call__(self, inputs: Union[Sequence[RawMSA], RawMSA], max_seqlen=None):
         if isinstance(inputs[0][0], str):
             # Input is a single MSA
             raw_batch: Sequence[RawMSA] = [inputs]  # type: ignore
@@ -398,8 +398,11 @@ class OneHotMSABatchConverter(OneHotBatchConverter):
 
         batch_size = len(raw_batch)
         max_alignments = max(len(msa) for msa in raw_batch)
-        max_seqlen = max(len(msa[0][1]) for msa in raw_batch)
-
+        check_lengths=False
+        if max_seqlen is None:
+            check_lengths=True
+            max_seqlen = max(len(msa[0][1]) for msa in raw_batch)
+            
         # tokens = torch.empty(
         #     (
         #         batch_size,
@@ -426,7 +429,7 @@ class OneHotMSABatchConverter(OneHotBatchConverter):
 
         for i, msa in enumerate(raw_batch):
             msa_seqlens = set(len(seq) for _, seq in msa)
-            if not len(msa_seqlens) == 1:
+            if check_lengths and not len(msa_seqlens) == 1:
                 raise RuntimeError(
                     "Received unaligned sequences for input to MSA, all sequence "
                     "lengths must be equal."
