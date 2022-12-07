@@ -2,11 +2,13 @@
 
 Read the original README [here](https://github.com/facebookresearch/esm/blob/main/README.md).
 
+Supports ESM2. 
+
 ## Installation
 
 ```bash
-$ git clone git@github.nrel.gov:pemami/esm.git
-$ cd esm/
+$ git clone git@github.com:pemami4911/esm_one_hot.git
+$ cd esm_one_hot/
 $ pip install -e .
 ```
 
@@ -17,7 +19,7 @@ import esm_one_hot
 I changed the package name from `esm` to `esm_one_hot` to allow for both the original and modified code bases to be installed.
 
 
-## Modifications
+## (Not necessarily complete) Summary of Modifications
 
 * `data.py`
   * Added the `OneHotBatchConverter` so the returned sequence tokens are one-hot encoded.
