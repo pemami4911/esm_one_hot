@@ -22,7 +22,7 @@ setup(
     author="Patrick Emami",
     url="https://github.nrel.gov/pemami/esm",
     license="MIT",
-    packages=["esm_one_hot"],
+    packages=["esm_one_hot", "esm_one_hot/model"],
     data_files=[("source_docs/esm_one_hot", ["LICENSE", "README.md", "CODE_OF_CONDUCT.rst"])],
     zip_safe=True,
 )
